@@ -1,6 +1,6 @@
 # FactoryOps AI
 
-> An end-to-end Industrial AI platform for predictive maintenance, machine learning, MLOps, Big Data, and Generative AI.
+> An end-to-end Industrial AI platform for predictive maintenance, machine telemetry, data engineering, ML, and AI-assisted maintenance.
 
 ![Python](https://img.shields.io/badge/Python-3.12-blue)
 ![PyTorch](https://img.shields.io/badge/PyTorch-DeepLearning-red)
@@ -12,374 +12,323 @@
 ![Apache Airflow](https://img.shields.io/badge/Airflow-Workflow-red)
 ![Apache Spark](https://img.shields.io/badge/PySpark-BigData-orange)
 ![LangChain](https://img.shields.io/badge/LangChain-LLM-success)
-
 ---
 
-# Overview
+## Overview
 
-Industrial Intelligence Platform is a production-inspired project that simulates a complete predictive maintenance ecosystem for smart manufacturing.
+FactoryOps AI is a production-inspired Industrial AI platform that simulates the lifecycle of industrial machine data—from telemetry generation and storage to predictive maintenance and AI-assisted investigation.
 
-The platform demonstrates how modern Industrial AI systems are built—from raw machine telemetry to intelligent maintenance recommendations powered by Large Language Models.
+The platform covers:
 
-Rather than focusing on isolated machine learning examples, this repository follows the lifecycle of an industrial data platform, covering:
+* Industrial IoT and machine telemetry
+* Data ingestion and processing
+* PostgreSQL data storage
+* Predictive maintenance
+* Machine learning and deep learning
+* REST APIs
+* MLOps
+* Big-data processing
+* Retrieval-Augmented Generation (RAG)
+* AI agents
+* Observability
+* Containerized and cloud deployment
 
-- Industrial IoT
-- Data Engineering
-- Machine Learning
-- Deep Learning
-- MLOps
-- Distributed Computing
-- Cloud Deployment
-- Generative AI
-- AI Agents
-- System Design
+## Architecture
 
-The goal is to build a realistic software architecture similar to those used in Industry 4.0 environments.
-
----
-
-# Project Architecture
-
-```
-Industrial Machines
-        │
-        ▼
-IoT Sensor Data Generator
-        │
-        ▼
-ETL Pipeline (Apache Airflow)
-        │
-        ▼
-PySpark Data Processing
-        │
-        ▼
-PostgreSQL Data Warehouse
-        │
-        ├───────────────┐
-        │               │
-        ▼               ▼
-Deep Learning      AI Maintenance Copilot
-Prediction API          (RAG + Agents)
-        │               │
-        └───────┬───────┘
-                │
-                ▼
-          Technician Dashboard
-                │
-                ▼
-        Docker • Kubernetes • AWS
-```
-
----
-
-# Repository Structure
-
-```
-industrial-intelligence-platform/
-
-│
-├── docs/
-│
-├── infrastructure/
-│   ├── docker/
-│   ├── kubernetes/
-│   ├── terraform/
-│   └── aws/
-│
-├── shared/
-│
-├── services/
-│   │
-│   ├── data-generator/
-│   │
-│   ├── etl-pipeline/
-│   │
-│   ├── ml-training/
-│   │
-│   ├── prediction-api/
-│   │
-│   ├── big-data/
-│   │
-│   ├── ai-copilot/
-│   │
-│   └── dashboard/
-│
-├── notebooks/
-│
-├── data/
-│
-├── tests/
-│
-├── scripts/
-│
-├── .github/
-│
-├── docker-compose.yml
-│
-├── Makefile
-│
-└── README.md
+```text
+                         Industrial Machines
+                                │
+                                ▼
+                       Machine Simulator
+                                │
+                                ▼
+                            Telemetry
+                                │
+                                ▼
+                       Ingestion Pipeline
+                                │
+                    ┌───────────┴───────────┐
+                    ▼                       ▼
+              PostgreSQL             Object Storage
+          Operational Data          Raw / Historical Data
+                    │                       │
+                    │                       ▼
+                    │                Data Processing
+                    │                       │
+                    │                       ▼
+                    │               Feature Engineering
+                    │                       │
+                    │                       ▼
+                    │                  ML Training
+                    │                       │
+                    │                       ▼
+                    │                   ML Models
+                    │                       │
+                    └───────────┬───────────┘
+                                ▼
+                         Prediction API
+                                │
+                    ┌───────────┴───────────┐
+                    ▼                       ▼
+               AI Copilot             FastAPI API
+                    │                       │
+              ┌─────┴─────┐                 │
+              ▼           ▼                 ▼
+             RAG       ML Tools       React Frontend
+              │                             │
+              └──────────────┬──────────────┘
+                             ▼
+                   Maintenance Dashboard
 ```
 
----
+### Architecture Overview
+
+FactoryOps separates **operational application data** from **large-scale historical and ML data**.
+
+* **PostgreSQL** stores operational data such as machines, machine state, alerts, predictions, and maintenance records.
+* **Object Storage** stores raw telemetry, historical datasets, Parquet files, training datasets, and other large artifacts.
+* **Data Processing** transforms historical data into datasets suitable for analytics and machine learning.
+* **ML Training** produces predictive-maintenance models from engineered features.
+* **Prediction API** exposes trained models to the rest of the platform.
+* **AI Copilot** combines machine data, prediction services, and RAG to assist with maintenance investigation.
+* **Factory Dashboard** provides the user-facing view of machines, predictions, alerts, and maintenance information.
 
-# Development Roadmap
+## Features
 
-## Phase 0 — Foundations
+### Machine Simulation
 
-Build the fundamental software engineering skills required throughout the project.
+* Industrial machine simulation
+* Synthetic sensor telemetry
+* Machine operating states
+* Failure scenarios
+* Configurable sensor behavior
 
-### Topics
+### Data Platform
 
-- Python
-- Git
-- GitHub
-- Linux
-- SQL
-- Docker
-- Virtual Environments
+* Telemetry ingestion
+* PostgreSQL persistence
+* Data validation
+* Historical datasets
+* Feature engineering
+* Scheduled data workflows
 
----
+### Predictive Maintenance
 
-## Phase 1 — Industrial IoT Data Generator
+* Failure prediction
+* Anomaly detection
+* Time-series features
+* Model evaluation
+* Prediction API
 
-Develop a realistic industrial sensor simulator capable of generating machine telemetry.
+### AI Maintenance Copilot
 
-### Simulated Sensors
+* Machine history lookup
+* Prediction lookup
+* Technical-document retrieval
+* RAG-based investigation
+* AI-assisted maintenance recommendations
 
-- Temperature
-- Pressure
-- Vibration
-- RPM
-- Voltage
-- Machine ID
-- Timestamp
+### Platform Engineering
 
-### Technologies
+* Docker-based development
+* Automated testing
+* CI/CD
+* Service separation
+* Observability
+* Kubernetes deployment
+* Cloud infrastructure
 
-- Python
-- NumPy
-- Pandas
-- JSON
-- CSV
+## Technology Stack
 
----
+| Layer                | Technologies                |
+| -------------------- | --------------------------- |
+| **Frontend**         | React, TypeScript, Vite     |
+| **Backend / API**    | Python, FastAPI, Pydantic   |
+| **Database**         | PostgreSQL, pgvector        |
+| **Data Engineering** | Pandas, SQL, Apache Airflow |
+| **Streaming**        | Apache Kafka                |
+| **Big Data**         | Apache Spark, PySpark       |
+| **Machine Learning** | Scikit-learn, PyTorch       |
+| **MLOps**            | MLflow                      |
+| **Generative AI**    | LangChain, LangGraph, RAG   |
+| **Containers**       | Docker, Docker Compose      |
+| **Orchestration**    | Kubernetes                  |
+| **CI/CD**            | GitHub Actions              |
+| **Cloud**            | AWS                         |
+
+
+## Getting Started
+
+### Prerequisites
+
+Install:
+
+* Git
+* Python 3.11+
+* Docker
+* Docker Compose
+* PostgreSQL
+* Node.js and npm/pnpm for the web application
 
-## Phase 2 — Data Engineering Pipeline
+### Clone
+
+```bash
+git clone <repository-url>
+cd factoryops-ai
+```
+
+### Configure Environment
+
+```bash
+cp .env.example .env
+```
+
+Update the environment variables required for local development.
+
+### Start Infrastructure
+
+```bash
+docker compose up -d
+```
+
+### Run the Application
+
+Use the project commands documented in `Makefile`.
+
+```bash
+make help
+```
+
+Typical development commands include:
+
+```bash
+make dev
+make test
+make lint
+make format
+make migrate
+make seed
+make down
+```
 
-Create a complete ETL workflow that stores and prepares sensor data for analytics.
+> Commands are added as the corresponding components become available.
 
-### Features
+## Testing
 
-- ETL Pipelines
-- Data Validation
-- Feature Engineering
-- PostgreSQL Storage
-- Apache Airflow Scheduling
-- Logging
-- Unit Testing
+Tests are organized around the system boundaries and core domain behavior.
 
-### Technologies
+```bash
+make test
+```
 
-- Pandas
-- PostgreSQL
-- SQL
-- Apache Airflow
-- Scikit-Learn
+Testing will cover:
 
----
+* Unit tests
+* API tests
+* Database integration tests
+* Data validation
+* Machine simulation
+* Prediction logic
+* AI tools
+* End-to-end workflows
 
-## Phase 3 — Predictive Maintenance API
+The primary end-to-end scenario is:
 
-Train deep learning models capable of forecasting equipment failures and expose them through REST APIs.
+```text
+Start Machine
+      ↓
+Inject Failure
+      ↓
+Generate Telemetry
+      ↓
+Process Telemetry
+      ↓
+Generate Prediction
+      ↓
+Create Alert
+      ↓
+Investigate Machine
+      ↓
+Ask AI Copilot
+      ↓
+Record Maintenance
+```
 
-### Models
+## Documentation
 
-- LSTM
-- GRU
-- 1D CNN
+Detailed project documentation is maintained separately from this README.
 
-### Features
+* `ROADMAP.md` — implementation phases and milestones
+* `docs/ARCHITECTURE.md` — system architecture and design decisions
+* `docs/DEVELOPMENT.md` — local development and engineering workflow
+* `docs/API.md` — API endpoints and contracts
 
-- Model Training
-- Model Evaluation
-- REST API
-- Docker Containers
-- Kubernetes Deployment
-- CI/CD
+The README is intentionally kept focused on orientation and getting started.
 
-### Technologies
+## Roadmap
 
-- PyTorch
-- FastAPI
-- Docker
-- Kubernetes
-- GitHub Actions
-- AWS
+FactoryOps AI is developed incrementally.
 
----
+```text
+M0  Foundation
+ ↓
+M1  Complete MVP
+ ↓
+M2  Event Streaming
+ ↓
+M3  Data Engineering
+ ↓
+M4  Advanced ML
+ ↓
+M5  MLOps
+ ↓
+M6  RAG + AI Agents
+ ↓
+M7  Observability
+ ↓
+M8  Kubernetes
+ ↓
+M9  AWS
+```
 
-## Phase 4 — Big Data Processing
+See [`ROADMAP.md`](ROADMAP.md) for the implementation plan, milestones, architectural changes, and definitions of done.
 
-Scale the platform to process industrial datasets ranging from several gigabytes to hundreds of gigabytes.
+## Project Principles
 
-### Features
+### Build the workflow before the infrastructure
 
-- Distributed ETL
-- Spark SQL
-- Window Functions
-- Partitioning
-- Distributed Processing
+The project prioritizes a working end-to-end product before introducing distributed infrastructure.
 
-### Technologies
+### Introduce technology for a reason
 
-- PySpark
-- Apache Spark
-- Airflow
-- PostgreSQL
-- AWS EMR
+Kafka, Spark, Kubernetes, AWS, and other technologies are introduced when they solve an actual engineering requirement.
 
----
+### Keep services independently understandable
 
-## Phase 5 — AI Maintenance Copilot
+Each service should have a clear responsibility and a well-defined interface.
 
-Develop an AI assistant capable of supporting maintenance engineers.
+### Make data reproducible
 
-### Capabilities
+Data generation, processing, feature engineering, and model training should be reproducible whenever possible.
 
-- Search historical machine records
-- Query prediction services
-- Search technical documentation using RAG
-- Generate repair recommendations
-- Explain predictions
-- Assist troubleshooting
+### Treat documentation as part of the system
 
-### Technologies
+Architecture, development procedures, APIs, and important design decisions should be documented alongside the implementation.
 
-- LangChain
-- LangGraph
-- pgvector
-- Embeddings
-- FastAPI
-- Docker
+<!-- ## Contributing
 
----
+Contributions are welcome.
 
-## Phase 6 — Smart Factory Dashboard
+Before submitting a change:
 
-Create a unified dashboard that visualizes the entire industrial platform.
+```bash
+make test
+make lint
+make format
+```
 
-### Features
-
-- Machine Monitoring
-- Prediction Visualization
-- Maintenance History
-- AI Assistant
-- Interactive Dashboards
-
----
-
-# Technologies
-
-## Programming
-
-- Python
-
-## Data Engineering
-
-- Pandas
-- SQL
-- PostgreSQL
-- Apache Airflow
-
-## Machine Learning
-
-- Scikit-Learn
-- PyTorch
-- TensorFlow (Optional)
-
-## APIs
-
-- FastAPI
-- Pydantic
-
-## Big Data
-
-- PySpark
-- Apache Spark
-
-## MLOps
-
-- Docker
-- Kubernetes
-- GitHub Actions
-
-## Cloud
-
-- AWS S3
-- AWS RDS
-- AWS ECR
-- AWS ECS / EKS
-- AWS EMR
-
-## Generative AI
-
-- LangChain
-- LangGraph
-- RAG
-- pgvector
-
-## Frontend
-
-- React (Optional)
-
----
-
-# Skills Demonstrated
-
-- Python Development
-- Software Engineering
-- Data Engineering
-- Machine Learning
-- Deep Learning
-- Time Series Forecasting
-- Feature Engineering
-- REST API Development
-- MLOps
-- CI/CD
-- Docker
-- Kubernetes
-- Cloud Deployment
-- Distributed Computing
-- Retrieval-Augmented Generation (RAG)
-- AI Agents
-- System Design
-- Industrial AI
-
----
-
-# Future Improvements
-
-- Streaming with Apache Kafka
-- Real-time predictions
-- Grafana dashboards
-- Prometheus monitoring
-- Model Registry
-- MLflow integration
-- Multi-model serving
-- Digital Twin simulation
-- Edge AI deployment
-
----
-
-# Learning Objectives
-
-This repository is designed to provide practical experience building an end-to-end Industrial AI platform while following software engineering best practices.
-
-Each phase builds upon the previous one, resulting in a complete production-inspired system suitable for demonstrating skills in Data Engineering, Machine Learning, MLOps, Cloud Computing, and Generative AI.
-
----
+For larger changes, document the architectural impact and update the relevant documentation. -->
 
 ## License
 
-MIT License
+This project is licensed under the MIT License. See [`LICENSE`](LICENSE) for details.

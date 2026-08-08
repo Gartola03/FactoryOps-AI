@@ -1,0 +1,36 @@
+services:
+  # TODO: Change it the data
+  postgres:
+    image: postgres:16
+    container_name: factoryops-postgres
+    environment:
+      POSTGRES_USER: factoryops
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: factoryops
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+
+
+
+  # app:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #     target: runtime
+  #   command: python -m your_package
+  #   working_dir: /app
+  #   env_file:
+  #     - .env
+  #   environment:
+  #     - PYTHONUNBUFFERED=1
+  #   ports:
+  #     - "8000:8000"
+  #   volumes:
+  #     - ./src:/app/src
+  #     - ./tests:/app/tests
+  #     - ./docs:/app/docs

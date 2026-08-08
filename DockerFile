@@ -1,0 +1,34 @@
+ARG UV_IMAGE=astral/uv:python3.12-bookworm-slim
+
+# Builder stage: install dependencies and create virtual environment
+FROM ${UV_IMAGE} AS builder
+WORKDIR /app
+
+# Copy only necessary files for dependency installation
+COPY pyproject.toml ./ 
+COPY uv.lock ./uv.lock
+COPY README.md ./ 
+COPY src ./src
+
+# Install all dependencies and compile bytecode
+RUN uv sync --dev --compile-bytecode
+
+# Runtime stage: only the files needed to run the app
+FROM ${UV_IMAGE} AS runtime
+WORKDIR /app
+
+# Copy virtual environment and source code from builder
+COPY --from=builder /app/.venv ./.venv
+COPY --from=builder /app/src ./src
+
+# Set PATH to use the virtual environment
+ENV PATH="/app/.venv/bin:${PATH}"
+
+# Optional metadata
+LABEL maintainer="Your Name <you@ikerlan.es>" \
+      version="0.1.0" \
+      description="Python project template with uv"
+
+# Default command to run the application
+ENTRYPOINT ["python", "src/your_package/main.py"]
+CMD []
