@@ -1,10 +1,10 @@
 # FactoryOps AI — Roadmap
 
-> **The implementation roadmap for evolving FactoryOps AI from a focused industrial AI vertical slice into a production-inspired, event-driven, ML-powered, observable, cloud-deployed platform.**
+> **The implementation roadmap for evolving FactoryOps AI from a focused industrial AI vertical slice into a production-inspired, event-driven, ML-powered, cloud-deployed platform.**
 
 FactoryOps AI is intentionally developed in stages.
 
-The goal is to build a complete industrial workflow first, then introduce architectural complexity only when it solves a real engineering problem.
+The goal is to build the **industrial workflow and predictive-maintenance foundation first**, then introduce additional capabilities such as authentication, LLMs, RAG, AI agents, observability, and other production features only when they provide a clear engineering or product benefit.
 
 ---
 
@@ -27,12 +27,10 @@ Alert
     ↓
 Technician Investigation
     ↓
-AI Copilot
-    ↓
 Maintenance Action
 ```
 
-Once that workflow works end-to-end, the platform evolves through increasingly sophisticated layers:
+The initial roadmap focuses on making this workflow reliable and progressively more sophisticated:
 
 ```text
 Complete MVP
@@ -45,27 +43,49 @@ Advanced ML
     ↓
 MLOps
     ↓
-RAG + AI Agents
-    ↓
-Observability
-    ↓
 Kubernetes
     ↓
 AWS
 ```
 
-Each phase has:
+Additional capabilities are introduced later as **Future Feature Implementations**:
 
-- A concrete engineering objective
-- A set of implementation tasks
-- A target architecture
-- A definition of done
-- A demonstrable milestone
+```text
+Authentication
+    ↓
+LLM Copilot
+    ↓
+RAG
+    ↓
+AI Agents
+    ↓
+Observability
+    ↓
+Additional Production Features
+```
+
+This separation keeps the main milestones focused and prevents the project from becoming overloaded with infrastructure and AI technologies before the core system is proven.
+
+---
+
+# Milestone Overview
+
+| Milestone | Phase            | Main Result                                           |
+| --------- | ---------------- | ----------------------------------------------------- |
+| **M0**    | Foundation       | Local application boots                               |
+| **M1**    | Complete MVP     | Full machine-failure vertical slice works             |
+| **M2**    | Event Streaming  | Telemetry and machine events flow through Kafka       |
+| **M3**    | Data Engineering | Historical data becomes reproducible datasets         |
+| **M4**    | Advanced ML      | Real predictive-maintenance model is deployed         |
+| **M5**    | MLOps            | Models are tracked, versioned, and reproducible       |
+| **M10**   | Kubernetes       | Services run as independently deployable workloads    |
+| **M11**   | AWS              | Cloud deployment is automated and production-inspired |
+
+Between these milestones, additional functionality can be introduced as **Future Feature Implementations** without changing the core milestone structure.
 
 ---
 
 # Repository Structure Evolution
-
 
 ## Initial Repository
 
@@ -86,8 +106,7 @@ factoryops-ai/
 ├── services/
 │   ├── api/
 │   ├── machine-simulator/
-│   ├── prediction-service/
-│   └── ai-copilot/
+│   └── prediction-service/
 │
 ├── shared/
 ├── data/
@@ -98,13 +117,15 @@ factoryops-ai/
     └── workflows/
 ```
 
-This is the repository structure for the first major milestone.
+The initial repository intentionally contains only the components required for the core FactoryOps workflow.
+
+The AI Copilot is **not required for the initial MVP**.
 
 ---
 
 ## Repository After Data Engineering
 
-When Kafka, Airflow, object storage, and larger ML workflows become real requirements, additional directories can be introduced:
+When Kafka, Airflow, object storage, and larger ML workflows become real requirements:
 
 ```text
 factoryops-ai/
@@ -134,8 +155,7 @@ factoryops-ai/
 │   ├── docker/
 │   ├── postgres/
 │   ├── kafka/
-│   ├── airflow/
-│   └── monitoring/
+│   └── airflow/
 │
 ├── tests/
 ├── docs/
@@ -181,24 +201,20 @@ factoryops-ai/
     └── workflows/
 ```
 
-The repository therefore reflects the actual maturity of the system instead of pretending that every future component already exists.
+Future AI functionality can later introduce additional directories such as:
 
----
+```text
+services/
+└── ai-copilot/
 
-# Milestone Overview
+ai/
+├── prompts/
+├── rag/
+├── agents/
+└── tools/
+```
 
-| Milestone | Phase | Main Result |
-|---|---|---|
-| **M0** | Foundation | Local application boots |
-| **M1** | Complete MVP | Full machine-failure vertical slice works |
-| **M2** | Event Streaming | Telemetry flows through Kafka |
-| **M3** | Data Engineering | Historical data becomes reproducible datasets |
-| **M4** | Advanced ML | Real predictive-maintenance model deployed |
-| **M5** | MLOps | Models are tracked and versioned |
-| **M6** | RAG + Agents | Copilot uses tools and technical knowledge |
-| **M7** | Observability | Distributed system is measurable and traceable |
-| **M8** | Kubernetes | Services run as independently deployable workloads |
-| **M9** | AWS | Cloud deployment is automated and production-inspired |
+These are **future extensions**, not requirements for the core milestone progression.
 
 ---
 
@@ -208,7 +224,7 @@ The repository therefore reflects the actual maturity of the system instead of p
 
 Create the basic FactoryOps application and development environment.
 
-The system should be able to run locally before any sophisticated industrial or AI functionality is added.
+The system should be able to run locally before sophisticated industrial, ML, or AI functionality is added.
 
 ## Tasks
 
@@ -299,74 +315,7 @@ communicate successfully.
 
 ## Objective
 
-Build the first complete FactoryOps experience.
-
-This is the most important phase of the project.
-
-The system should demonstrate the complete industrial workflow before Kafka, Spark, Kubernetes, or AWS are introduced.
-
----
-
-## 1. Authentication
-
-```text
-[ ] User model
-[ ] Login
-[ ] Password hashing
-[ ] Session / token authentication
-[ ] Authentication middleware
-```
-
----
-
-## 2. Role-Based Access Control
-
-Initial roles:
-
-```text
-ADMIN
-DEVELOPER
-TECHNICIAN
-```
-
-Permissions should reflect the actual workflows.
-
-### Developer
-
-```text
-[ ] View machines
-[ ] Create machines
-[ ] Start machines
-[ ] Stop machines
-[ ] Pause machines
-[ ] Resume machines
-[ ] Run scenarios
-[ ] Inject failures
-[ ] Reset simulations
-```
-
-### Technician
-
-```text
-[ ] View machines
-[ ] View telemetry
-[ ] View alerts
-[ ] View predictions
-[ ] View maintenance history
-[ ] Investigate machines
-[ ] Use AI Copilot
-[ ] Record maintenance
-```
-
-### Administrator
-
-```text
-[ ] Manage users
-[ ] Manage roles
-[ ] Manage factory configuration
-[ ] Access developer functionality
-[ ] Access technician functionality
-```
+Build the first complete FactoryOps industrial experience.
 
 ---
 
@@ -374,15 +323,13 @@ Permissions should reflect the actual workflows.
 
 Create the central machine domain.
 
-## Machine
-
 Example:
 
 ```text
 PUMP-005
 ```
 
-Fields should include concepts such as:
+Fields should include:
 
 ```text
 id
@@ -460,9 +407,7 @@ Initial scenario:
 Bearing Failure
 ```
 
-The failure must create a degradation trajectory rather than instantly failing the machine.
-
-Example:
+The failure should create a degradation trajectory rather than instantly failing the machine.
 
 ```text
 Healthy
@@ -623,15 +568,16 @@ The interface should prioritize:
 ```text
 What is wrong?
 How serious is it?
-Why is it happening?
 What should I investigate?
 ```
+
+AI explanation is **not required at this stage**.
 
 ---
 
 # Phase 1.8 — Maintenance Records
 
-Create the feedback loop.
+Create the maintenance feedback loop.
 
 Tasks:
 
@@ -651,42 +597,7 @@ Inspection performed.
 Drive-end bearing requires replacement.
 ```
 
-This record becomes part of the machine's historical context.
-
----
-
-# Phase 1.9 — Basic AI Copilot
-
-The initial Copilot should remain simple.
-
-Input:
-
-```text
-Machine State
-+
-Current Telemetry
-+
-Prediction
-+
-Maintenance History
-```
-
-Tasks:
-
-```text
-[ ] LLM integration
-[ ] Machine context builder
-[ ] Maintenance prompt
-[ ] Copilot endpoint
-[ ] Chat UI
-[ ] Basic error handling
-```
-
-Example:
-
-> Why is PUMP-005 at high risk?
-
-The Copilot should explain which signals and prediction factors are contributing to the risk.
+This record becomes part of the machine's historical context and can later become useful to ML and AI features.
 
 ---
 
@@ -695,13 +606,13 @@ The Copilot should explain which signals and prediction factors are contributing
 The MVP must support:
 
 ```text
-Login
+Developer
   ↓
-Developer opens simulator
+Open simulator
   ↓
-PUMP-005 starts
+Start PUMP-005
   ↓
-Bearing Failure injected
+Inject Bearing Failure
   ↓
 Telemetry degrades
   ↓
@@ -713,16 +624,14 @@ Technician opens PUMP-005
   ↓
 Technician sees telemetry and prediction
   ↓
-Technician asks AI Copilot
-  ↓
-AI explains the degradation
+Technician investigates
   ↓
 Technician records maintenance
 ```
 
 ## Definition of Done
 
-> **A complete machine failure can be simulated, detected, investigated, explained, and recorded through one FactoryOps application.**
+> **A complete machine failure can be simulated, detected, predicted, investigated, and recorded through one FactoryOps application.**
 
 This is **Milestone M1**.
 
@@ -756,8 +665,6 @@ Kafka
     └── Analytics Consumer
 ```
 
----
-
 ## Kafka
 
 Tasks:
@@ -779,13 +686,7 @@ machine.alerts
 simulation.events
 ```
 
----
-
 ## Event Contracts
-
-Define stable event schemas.
-
-Example concepts:
 
 ```text
 TelemetryEvent
@@ -805,8 +706,6 @@ Tasks:
 [ ] Event timestamps
 [ ] Correlation IDs
 ```
-
----
 
 ## Consumers
 
@@ -849,9 +748,7 @@ Feature Engineering
 Training Dataset
 ```
 
----
-
-# Object Storage
+## Object Storage
 
 Introduce MinIO locally and S3-compatible storage concepts.
 
@@ -866,11 +763,7 @@ Tasks:
 [ ] Retention strategy
 ```
 
----
-
-# Airflow
-
-Introduce workflow orchestration.
+## Airflow
 
 Tasks:
 
@@ -884,11 +777,7 @@ Tasks:
 [ ] Dataset-generation workflow
 ```
 
----
-
-# Data Quality
-
-Tasks:
+## Data Quality
 
 ```text
 [ ] Schema validation
@@ -899,9 +788,7 @@ Tasks:
 [ ] Sensor anomaly checks
 ```
 
----
-
-# Feature Engineering
+## Feature Engineering
 
 Potential features:
 
@@ -941,8 +828,6 @@ Replace the MVP prediction logic with trained time-series models.
 
 Start with strong baselines before deep learning.
 
----
-
 ## Model Progression
 
 ```text
@@ -961,9 +846,7 @@ Autoencoder
 
 Do not assume that the most complex model is automatically the best model.
 
----
-
-# Training Pipeline
+## Training Pipeline
 
 ```text
 Historical Telemetry
@@ -993,9 +876,7 @@ Tasks:
 [ ] Model comparison
 ```
 
----
-
-# Prediction API
+## Prediction API
 
 The prediction service should eventually provide:
 
@@ -1077,24 +958,153 @@ What metrics did it achieve?
 
 ## Definition of Done
 
-> Model versions can be tracked, registered, promoted, and identified from production predictions.
+> Model versions can be tracked, registered, promoted, and identified from predictions.
 
 This is **Milestone M5**.
 
 ---
 
-# Phase 6 — RAG + AI Maintenance Copilot
+# Future Feature Implementations
 
-## Objective
+The following capabilities are intentionally **not part of M1–M5**.
 
-Transform the basic LLM assistant into a contextual maintenance investigation system.
+They can be introduced later as independent feature implementations once the core FactoryOps platform is stable.
 
-The Copilot should eventually combine:
+---
+
+# Future Feature 1 — Authentication & User Management
+
+Authentication should be added when FactoryOps needs real users and access control.
 
 ```text
-Current Machine State
+[ ] User model
+[ ] Signup
+[ ] Login
+[ ] Password hashing
+[ ] Session / JWT authentication
+[ ] Authentication middleware
+[ ] Logout
+```
+
+## Role-Based Access Control
+
+Initial roles:
+
+```text
+ADMIN
+DEVELOPER
+TECHNICIAN
+```
+
+### Developer
+
+```text
+[ ] View machines
+[ ] Create machines
+[ ] Start machines
+[ ] Stop machines
+[ ] Pause machines
+[ ] Resume machines
+[ ] Run scenarios
+[ ] Inject failures
+[ ] Reset simulations
+```
+
+### Technician
+
+```text
+[ ] View machines
+[ ] View telemetry
+[ ] View alerts
+[ ] View predictions
+[ ] View maintenance history
+[ ] Investigate machines
+[ ] Record maintenance
+```
+
+### Administrator
+
+```text
+[ ] Manage users
+[ ] Manage roles
+[ ] Manage factory configuration
+```
+
+Authentication can therefore be implemented independently without blocking the industrial MVP.
+
+---
+
+# Future Feature 2 — LLM Maintenance Copilot
+
+Once the predictive-maintenance system works, introduce a basic LLM integration.
+
+The first AI version should remain deliberately simple.
+
+The LLM receives structured FactoryOps context:
+
+```text
+Machine State
 +
-Live Telemetry
+Current Telemetry
++
+Prediction
++
+Failure Scenario
++
+Maintenance History
+```
+
+Architecture:
+
+```text
+FactoryOps Data
+      ↓
+Context Builder
+      ↓
+LLM
+      ↓
+AI Explanation
+```
+
+Example:
+
+```text
+PUMP-005
+
+Temperature: 87°C
+Vibration: 8.4 mm/s
+RPM: 1,420
+Failure probability: 91%
+Scenario: Bearing Failure
+```
+
+The Copilot can explain:
+
+> PUMP-005 is showing a high risk of bearing failure because vibration and temperature are increasing while RPM is decreasing.
+
+Tasks:
+
+```text
+[ ] LLM integration
+[ ] Context builder
+[ ] Prompt design
+[ ] Copilot API
+[ ] Chat UI
+[ ] Error handling
+```
+
+The goal of the first AI implementation is **explanation**, not autonomous decision-making.
+
+---
+
+# Future Feature 3 — RAG
+
+After the basic LLM Copilot is useful, introduce technical knowledge retrieval.
+
+The Copilot can eventually combine:
+
+```text
+Machine Data
 +
 Prediction
 +
@@ -1102,10 +1112,6 @@ Maintenance History
 +
 Technical Documentation
 ```
-
----
-
-# Knowledge Base
 
 Potential sources:
 
@@ -1128,17 +1134,15 @@ Tasks:
 [ ] Embeddings
 [ ] Vector storage
 [ ] Retrieval
+[ ] Metadata filtering
+[ ] Source citations
 ```
 
-Introduce:
+Potential technology:
 
 ```text
 pgvector
 ```
-
----
-
-# RAG
 
 Target architecture:
 
@@ -1158,21 +1162,19 @@ LLM
 Maintenance Answer
 ```
 
-Tasks:
+This allows the Copilot to answer questions such as:
 
 ```text
-[ ] Retrieval pipeline
-[ ] Metadata filtering
-[ ] Machine-specific retrieval
-[ ] Maintenance-history retrieval
-[ ] Citation / source tracking
+What is happening?
+Why is the machine at risk?
+What does the maintenance documentation recommend?
 ```
 
 ---
 
-# Agent Architecture
+# Future Feature 4 — AI Agents
 
-Introduce LangGraph when multiple tools and controlled workflows are required.
+Agentic functionality should only be introduced when the Copilot requires multiple tools or multi-step investigation.
 
 Potential tools:
 
@@ -1184,27 +1186,31 @@ Maintenance Tool
 RAG Tool
 ```
 
-Architecture:
+Potential architecture:
 
 ```text
-                    Technician
-                         ↓
-                    AI Copilot
-                         ↓
-                    LangGraph
-                         │
-          ┌──────────────┼──────────────┐
-          ↓              ↓              ↓
-      Machine         Prediction        RAG
-       Tool             Tool            Tool
-          ↓              ↓              ↓
-     Factory API       ML API        Knowledge Base
+Technician
+    ↓
+AI Copilot
+    ↓
+Agent
+    │
+    ├── Machine Tool
+    ├── Telemetry Tool
+    ├── Prediction Tool
+    ├── Maintenance Tool
+    └── RAG Tool
+```
+
+Potential framework:
+
+```text
+LangGraph
 ```
 
 Tasks:
 
 ```text
-[ ] LangGraph
 [ ] Tool definitions
 [ ] Tool authorization
 [ ] Agent state
@@ -1214,21 +1220,33 @@ Tasks:
 [ ] Safety boundaries
 ```
 
-## Definition of Done
+Example future workflow:
 
-> A technician can ask a maintenance question and the Copilot can combine machine data, prediction results, maintenance history, and technical documentation to produce a contextual answer.
+```text
+Technician Question
+       ↓
+Analyze Machine
+       ↓
+Check Telemetry
+       ↓
+Check Prediction
+       ↓
+Search Documentation
+       ↓
+Check Maintenance History
+       ↓
+Generate Recommendation
+```
 
-This is **Milestone M6**.
+The agent should remain **controlled and tool-based**, rather than being given unrestricted access to FactoryOps.
 
 ---
 
-# Phase 7 — Observability
+# Future Feature 5 — Observability
 
-## Objective
+Observability should be introduced once the distributed architecture has enough components to justify it.
 
-Make the distributed FactoryOps platform measurable and debuggable.
-
-Introduce:
+Potential technologies:
 
 ```text
 Prometheus
@@ -1238,11 +1256,7 @@ Structured Logging
 Distributed Tracing
 ```
 
----
-
-# Metrics
-
-Monitor:
+## Metrics
 
 ```text
 API latency
@@ -1259,11 +1273,7 @@ LLM failures
 RAG retrieval latency
 ```
 
----
-
-# Logging
-
-Tasks:
+## Logging
 
 ```text
 [ ] Structured logs
@@ -1274,11 +1284,9 @@ Tasks:
 [ ] Error classification
 ```
 
----
+## Tracing
 
-# Tracing
-
-Track workflows such as:
+Eventually trace workflows such as:
 
 ```text
 Telemetry Event
@@ -1294,7 +1302,7 @@ WebSocket
 Technician Dashboard
 ```
 
-And:
+And later:
 
 ```text
 Technician Question
@@ -1310,21 +1318,17 @@ RAG
 LLM
 ```
 
-## Definition of Done
-
-> A developer can identify where latency, errors, or failures occurred across the distributed system.
-
-This is **Milestone M7**.
+The purpose is to make the system measurable and debuggable rather than adding observability simply because it is a common production technology.
 
 ---
 
-# Phase 8 — Kubernetes
+# Milestone 10 — Kubernetes
 
 ## Objective
 
 Move from local Docker orchestration to independently deployable services.
 
-Only introduce Kubernetes after service boundaries are stable.
+Kubernetes is introduced after the service architecture and ML platform are stable.
 
 Potential services:
 
@@ -1333,15 +1337,18 @@ factoryops-web
 factoryops-api
 machine-simulator
 prediction-service
-ai-copilot
 ingestion
 ```
 
----
+Future AI services can also be deployed independently:
 
-# Kubernetes Work
+```text
+ai-copilot
+rag-service
+agent-service
+```
 
-Tasks:
+## Kubernetes Work
 
 ```text
 [ ] Kubernetes manifests
@@ -1357,11 +1364,7 @@ Tasks:
 [ ] Rolling deployment
 ```
 
----
-
-# Service Resilience
-
-Tasks:
+## Service Resilience
 
 ```text
 [ ] Startup probes
@@ -1376,11 +1379,11 @@ Tasks:
 
 > FactoryOps services can run as independently deployable containers in Kubernetes.
 
-This is **Milestone M8**.
+This is **Milestone M10**.
 
 ---
 
-# Phase 9 — AWS
+# Milestone 11 — AWS
 
 ## Objective
 
@@ -1398,9 +1401,7 @@ IAM
 CloudWatch
 ```
 
----
-
-# AWS Architecture
+## AWS Architecture
 
 ```text
                          AWS
@@ -1411,7 +1412,7 @@ CloudWatch
              │                         │
       ┌──────┼────────┐                │
       ↓      ↓        ↓                │
-     API     ML     Copilot            │
+     API     ML     Other Services     │
       │      │        │                │
       └──────┼────────┘                │
              │                         │
@@ -1422,9 +1423,19 @@ CloudWatch
              Historical Data
 ```
 
----
+AI services can later be added to EKS without changing the core architecture:
 
-# Container Registry
+```text
+EKS
+├── FactoryOps API
+├── Prediction Service
+├── Machine Simulator
+├── AI Copilot
+├── RAG Service
+└── Agent Service
+```
+
+## Container Registry
 
 ```text
 [ ] ECR repositories
@@ -1434,9 +1445,7 @@ CloudWatch
 [ ] Deployment tags
 ```
 
----
-
-# Database
+## Database
 
 ```text
 [ ] RDS PostgreSQL
@@ -1446,9 +1455,7 @@ CloudWatch
 [ ] Environment separation
 ```
 
----
-
-# Storage
+## Storage
 
 ```text
 [ ] S3 raw telemetry
@@ -1457,9 +1464,7 @@ CloudWatch
 [ ] S3 model artifacts
 ```
 
----
-
-# Kubernetes Cloud Deployment
+## Kubernetes Cloud Deployment
 
 ```text
 [ ] EKS cluster
@@ -1472,9 +1477,7 @@ CloudWatch
 [ ] CI/CD deployment
 ```
 
----
-
-# CI/CD
+## CI/CD
 
 Target workflow:
 
@@ -1510,9 +1513,9 @@ Tasks:
 
 ## Definition of Done
 
-> FactoryOps can be deployed through CI/CD into AWS with persistent storage, container orchestration, monitoring, and independently deployable services.
+> FactoryOps can be deployed through CI/CD into AWS with persistent storage, container orchestration, and independently deployable services.
 
-This is **Milestone M9**.
+This is **Milestone M11**.
 
 ---
 
@@ -1530,7 +1533,14 @@ Testing evolves together with the architecture.
 [ ] Prediction calculations
 [ ] Alert rules
 [ ] Data validation
+```
+
+Future:
+
+```text
 [ ] AI tools
+[ ] RAG retrieval
+[ ] Agent workflows
 ```
 
 ---
@@ -1543,20 +1553,24 @@ Testing evolves together with the architecture.
 [ ] Simulator ↔ Kafka
 [ ] Kafka ↔ Consumers
 [ ] Prediction ↔ Model
+```
+
+Future:
+
+```text
 [ ] Copilot ↔ Tools
 [ ] Copilot ↔ Vector Store
+[ ] Agent ↔ Factory APIs
 ```
 
 ---
 
 ## End-to-End Testing
 
-The primary E2E workflow remains:
+The core E2E workflow remains:
 
 ```text
-Login
- ↓
-Start PUMP-005
+Start Machine
  ↓
 Inject Bearing Failure
  ↓
@@ -1568,12 +1582,24 @@ Receive Alert
  ↓
 Open Machine
  ↓
-Ask AI Copilot
- ↓
 Record Maintenance
 ```
 
-Every major architectural evolution should preserve this workflow.
+Future AI E2E functionality can extend it:
+
+```text
+...
+ ↓
+Ask AI Copilot
+ ↓
+AI Explains Failure
+ ↓
+Retrieve Technical Documentation
+ ↓
+Generate Maintenance Recommendation
+```
+
+Every major architectural evolution should preserve the original industrial workflow.
 
 ---
 
@@ -1599,129 +1625,93 @@ docs/
 ├── API.md
 ├── SIMULATION.md
 ├── ML.md
-├── AI_COPILOT.md
 ├── DATA_ENGINEERING.md
 ├── DEPLOYMENT.md
 └── DECISIONS/
 ```
 
-Architecture decisions should be documented when important design choices are made.
-
-Examples:
+Future AI documentation:
 
 ```text
-DECISIONS/
-├── 001-mvp-monolith.md
-├── 002-websocket-telemetry.md
-├── 003-kafka-event-streaming.md
-├── 004-model-serving.md
-└── 005-agent-architecture.md
+docs/
+├── AI_COPILOT.md
+├── RAG.md
+├── AGENTS.md
+└── OBSERVABILITY.md
 ```
 
 ---
 
-# What Should NOT Be Built Too Early
 
-FactoryOps should deliberately avoid premature complexity.
+# Feature Implementation Philosophy
 
-Do not start with:
+Future features should be added because they solve a real problem.
+
+For example:
+
+### LLM
+
+Introduce when technicians need natural-language explanations.
 
 ```text
-Kubernetes
+Prediction
+    ↓
+Technician asks "Why?"
+    ↓
+LLM explains prediction
+```
+
+### RAG
+
+Introduce when the LLM needs external technical knowledge.
+
+```text
+LLM
+ +
+Maintenance Manuals
+ +
+Technical Documentation
+```
+
+### Agents
+
+Introduce when the Copilot needs to perform multi-step investigation.
+
+```text
+Question
+ ↓
+Machine
+ ↓
+Telemetry
+ ↓
+Prediction
+ ↓
+Documentation
+ ↓
+Recommendation
+```
+
+### Observability
+
+Introduce when the system has enough distributed components that debugging becomes difficult.
+
+```text
 Kafka
-Spark
-Airflow
-MLflow
-LangGraph
-AWS
+ + 
+Services
+ +
+ML
+ +
+Infrastructure
 ```
 
-before the MVP proves the product workflow.
-
-The correct progression is:
-
-```text
-Working Product
-      ↓
-Architectural Pressure
-      ↓
-New Technology
-      ↓
-Measured Improvement
-```
-
-not:
-
-```text
-Technology
-    ↓
-Technology
-    ↓
-Technology
-    ↓
-Complexity
-```
-
----
-
-# Phase Completion Rule
-
-A phase is complete only when it has:
-
-1. Working implementation
-2. Tests
-3. Documentation
-4. Demonstrable behavior
-5. Stable interfaces for the next phase
-
-For example, Phase 2 is not complete merely because Kafka is running.
-
-It is complete when:
-
-```text
-Simulator
-    ↓
-Kafka
-    ↓
-Consumers
-    ↓
-Prediction / Persistence / Alerts
-```
-
-works reliably as part of the existing FactoryOps workflow.
-
----
-
-# Priority Order
-
-If development time becomes limited, prioritize in this order:
-
-```text
-1. Complete MVP
-2. Realistic machine simulation
-3. Reliable telemetry
-4. Prediction and alerts
-5. Technician workflow
-6. Basic AI Copilot
-7. Event streaming
-8. Historical data pipeline
-9. Advanced ML
-10. MLOps
-11. RAG / Agents
-12. Observability
-13. Kubernetes
-14. AWS
-```
-
-The first six items form the core product.
-
-The remaining phases progressively increase architectural depth.
+This gives every technology a concrete reason to exist.
 
 ---
 
 # Final Target Architecture
 
-At the end of the roadmap, FactoryOps can evolve toward:
+The eventual FactoryOps architecture can evolve toward:
 
 ```text
                                       USERS
@@ -1743,7 +1733,7 @@ At the end of the roadmap, FactoryOps can evolve toward:
               ┌─────────────────────────┼─────────────────────────┐
               │                         │                         │
               ▼                         ▼                         ▼
-       Machine Simulator        Prediction Service          AI Copilot
+       Machine Simulator        Prediction Service       Future AI Copilot
               │                         │                         │
               └─────────────────────────┼─────────────────────────┘
                                         │
@@ -1758,47 +1748,65 @@ At the end of the roadmap, FactoryOps can evolve toward:
                     │
               ┌─────┴─────┐
               ▼           ▼
-           Spark       ML Pipeline
-              │           │
-              ▼           ▼
-          Features      MLflow
+           Features    ML Pipeline
+                          │
+                          ▼
+                        MLflow
                           │
                           ▼
                     Model Registry
                           │
                           ▼
                     Model Serving
+```
 
+Future AI architecture:
+
+```text
 AI Copilot
     │
     ▼
- LangGraph
+   LLM
     │
- ┌──┼───────────────┐
- ▼  ▼               ▼
-RAG Tools       Machine Tools
- │                 │
- ▼                 ▼
-pgvector        Factory APIs
- │
- ▼
-Technical Docs
-+
-Maintenance History
+    ├───────────────┐
+    │               │
+    ▼               ▼
+   RAG           AI Agent
+    │               │
+    ▼               ├── Machine Tool
+Technical Docs      ├── Telemetry Tool
+                    ├── Prediction Tool
+                    ├── Maintenance Tool
+                    └── RAG Tool
+```
 
-Infrastructure
-    │
-    ├── Kubernetes
-    ├── Prometheus
-    ├── Grafana
-    ├── OpenTelemetry
-    │
-    └── AWS
-         ├── EKS
-         ├── RDS
-         ├── S3
-         ├── ECR
-         └── EMR
+Future observability layer:
+
+```text
+FactoryOps Services
+       │
+       ├── Metrics
+       ├── Logs
+       └── Traces
+              │
+              ▼
+      Observability Stack
+       ├── Prometheus
+       ├── Grafana
+       └── OpenTelemetry
+```
+
+Infrastructure:
+
+```text
+Kubernetes
+    ↓
+AWS
+    ├── EKS
+    ├── RDS
+    ├── S3
+    ├── ECR
+    └── EMR
 ```
 
 ---
@@ -1807,7 +1815,9 @@ Infrastructure
 
 The final objective is not to check every technology off a list.
 
-The objective is to demonstrate the evolution of one coherent Industrial AI system.
+The objective is to demonstrate the evolution of **one coherent Industrial AI system**.
+
+The core system starts with:
 
 ```text
                     MACHINE
@@ -1828,9 +1838,6 @@ The objective is to demonstrate the evolution of one coherent Industrial AI syst
                  INVESTIGATION
                        │
                        ▼
-                  AI COPILOT
-                       │
-                       ▼
                  MAINTENANCE
                        │
                        ▼
@@ -1846,32 +1853,46 @@ The objective is to demonstrate the evolution of one coherent Industrial AI syst
                  BETTER PREDICTION
 ```
 
-The architecture then grows around that loop:
+The main milestone progression is:
 
 ```text
-MVP
+M1 — Complete MVP
  ↓
-Streaming
+M2 — Event Streaming
  ↓
-Data Engineering
+M3 — Data Engineering
  ↓
-Machine Learning
+M4 — Advanced ML
  ↓
-MLOps
+M5 — MLOps
  ↓
-RAG
+M10 — Kubernetes
  ↓
-Agents
- ↓
-Observability
- ↓
-Kubernetes
- ↓
-Cloud
+M11 — AWS
 ```
 
-The core product never changes:
+Then the platform can progressively gain additional capabilities:
 
-> **A machine fails. FactoryOps sees it happening, predicts the failure, alerts a technician, explains the situation, and helps determine what to do next.**
+```text
+Future Features
+      │
+      ├── Authentication
+      │
+      ├── LLM Copilot
+      │
+      ├── RAG
+      │
+      ├── AI Agents
+      │
+      └── Observability
+```
 
-Everything else exists to make that workflow progressively more realistic, scalable, intelligent, observable, and production-inspired.
+The core product therefore remains:
+
+> **A machine fails. FactoryOps sees it happening, predicts the failure, alerts a technician, and records the maintenance response.**
+
+The future AI layer then makes that system more intelligent:
+
+> **FactoryOps can explain why the machine is at risk, retrieve relevant technical knowledge, and eventually assist with a controlled maintenance investigation.**
+
+Everything else exists to make the same industrial workflow progressively more realistic, scalable, intelligent, observable, and production-inspired.

@@ -138,6 +138,7 @@ DB_SEED_FILE=services/api/app/sql/seed.sql
 
 db-up:
 	docker compose up -d $(DB_SERVICE)
+	docker compose exec -T $(DB_SERVICE) sh -c 'until pg_isready -U $(DB_USER) -d $(DB_NAME); do sleep 1; done'
 
 db-down:
 	docker compose stop $(DB_SERVICE)
