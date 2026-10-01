@@ -25,7 +25,7 @@ COPY --from=builder /app/src ./src
 ENV PATH="/app/.venv/bin:${PATH}"
 
 # Optional metadata
-LABEL maintainer="Your Name <you@ikerlan.es>" \
+LABEL maintainer="Your Name <you@yourdomain.com>" \
       version="0.1.0" \
       description="Python project template with uv"
 

@@ -1,8 +1,26 @@
+from datetime import datetime, timedelta, timezone
+
+import jwt
+from app.core.config import settings
 from app.db.connection import get_connection
 from app.main import app
 from fastapi.testclient import TestClient
 
 client = TestClient(app)
+
+
+def auth_headers():
+    token = jwt.encode(
+        {
+            "sub": "1",
+            "email": "admin@example.com",
+            "role": "admin",
+            "exp": datetime.now(timezone.utc) + timedelta(minutes=5),
+        },
+        settings.jwt_secret,
+        algorithm="HS256",
+    )
+    return {"Authorization": f"Bearer {token}"}
 
 
 def test_get_machine():
@@ -24,7 +42,7 @@ def test_get_machine():
         conn.commit()
 
     # Act: call the API
-    response = client.get("/api/v1/machines/999")
+    response = client.get("/api/v1/machines/999", headers=auth_headers())
 
     # Assert: verify the API returned the expected data
     assert response.status_code == 200

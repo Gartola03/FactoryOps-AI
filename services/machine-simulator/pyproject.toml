@@ -1,0 +1,20 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "machine-simulator"
+version = "0.1.0"
+description = "Machine simulator service for FactoryOps AI telemetry generation"
+readme = "README.md"
+authors = [
+    { name = "Garikoitz", email = "gartola02@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = []
+
+[project.scripts]
+machine-simulator = "app.main:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["app"]

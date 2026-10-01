@@ -1,7 +1,8 @@
+from app.core.security import get_current_user
 from app.db.connection import get_connection
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 
-router = APIRouter(prefix="/machines")
+router = APIRouter(prefix="/machines", dependencies=[Depends(get_current_user)])
 
 
 @router.get("/{machine_id}")

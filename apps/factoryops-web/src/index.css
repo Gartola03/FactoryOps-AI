@@ -9,3 +9,14 @@ body,
   min-width: 100%;
   min-height: 100%;
 }
+
+body {
+  color: #202228;
+  background: #f7f6f2;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+button,
+input {
+  font-family: inherit;
+}

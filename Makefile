@@ -47,8 +47,8 @@ install:
 	cd apps/factoryops-web && npm install
 	cd services/api && uv sync
 	cd services/machine-simulator && uv sync
-	cd services/prediction-service && uv sync
-	cd services/ai-copilot && uv sync
+#	cd services/prediction-service && uv sync
+# 	cd services/ai-copilot && uv sync
 
 ## Run tests
 test:

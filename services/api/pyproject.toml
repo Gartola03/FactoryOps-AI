@@ -13,8 +13,10 @@ authors = [
 
 dependencies = [
     "fastapi[standard]>=0.141.1",
+    "pyjwt>=2.10.1",
     "psycopg[binary]>=3.3.4",
     "pydantic-settings>=2.0.0",
+    "pwdlib[argon2]>=0.2.1",
 ]
 
 [tool.hatch.build.targets.wheel]

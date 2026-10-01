@@ -319,6 +319,69 @@ Build the first complete FactoryOps industrial experience.
 
 ---
 
+## 1. Authentication
+
+```text
+[X] User model
+[X] Login
+[X] Password hashing
+[X] Session / token authentication
+[X] Authentication middleware
+```
+
+---
+
+## 2. Role-Based Access Control
+
+Initial roles:
+
+```text
+ADMIN
+DEVELOPER
+TECHNICIAN
+```
+
+Permissions should reflect the actual workflows.
+
+### Developer
+
+```text
+[ ] View machines
+[ ] Create machines
+[ ] Start machines
+[ ] Stop machines
+[ ] Pause machines
+[ ] Resume machines
+[ ] Run scenarios
+[ ] Inject failures
+[ ] Reset simulations
+```
+
+### Technician
+
+```text
+[ ] View machines
+[ ] View telemetry
+[ ] View alerts
+[ ] View predictions
+[ ] View maintenance history
+[ ] Investigate machines
+[ ] Use AI Copilot
+[ ] Record maintenance
+```
+
+### Administrator
+
+```text
+[ ] Manage users
+[ ] Manage roles
+[ ] Manage factory configuration
+[ ] Access developer functionality
+[ ] Access technician functionality
+```
+
+---
+
 # Phase 1.1 — Machine Domain
 
 Create the central machine domain.
