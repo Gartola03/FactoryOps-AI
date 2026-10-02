@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { AUTH_KEY, ROLE_KEY } from "../auth/permissions";
+import { AUTH_KEY, ROLE_KEY, getRoleLabel } from "../auth/permissions";
 import './Header.css'
 
 function Header() {
@@ -23,6 +23,7 @@ function Header() {
       </div>
       <div className="header-actions">
         <span className="system-status"><span className="status-dot" />All systems nominal</span>
+        <span className="header-role">{getRoleLabel()}</span>
         <button className="logout-button" type="button" onClick={handleLogout}>Exit</button>
       </div>
     </header>

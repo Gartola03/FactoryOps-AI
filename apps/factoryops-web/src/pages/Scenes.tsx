@@ -1,11 +1,7 @@
-function Scenes() {
-  return (
-    <div>
-      <h2>Scenes</h2>
+import RoleScreen from "./RoleScreen";
 
-      {/* scene components go here */}
-    </div>
-  );
+function Scenes() {
+  return <RoleScreen path="/scenes" title="Failure scenarios" description="Control machine states and run controlled failure simulations." />;
 }
 
 export default Scenes;

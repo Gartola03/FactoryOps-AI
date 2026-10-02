@@ -1,0 +1,93 @@
+.role-screen {
+  max-width: 1180px;
+}
+
+.role-screen-badge {
+  align-self: flex-start;
+  padding: 8px 11px;
+  border: 1px solid #d9d4e5;
+  border-radius: 4px;
+  color: #7042a6;
+  background: #f5f0fb;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.role-screen-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(260px, .8fr);
+  gap: 18px;
+  margin-top: 30px;
+}
+
+.role-screen-panel {
+  min-height: 220px;
+  padding: 25px;
+  border: 1px solid #deddd8;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.role-screen-panel h2 {
+  margin: 7px 0 20px;
+  color: #202228;
+  font-size: 22px;
+}
+
+.role-screen-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.role-screen-action {
+  display: flex;
+  justify-content: space-between;
+  gap: 28px;
+  min-width: 190px;
+  padding: 13px 15px;
+  border: 1px solid #deddd8;
+  border-radius: 4px;
+  color: #30313a;
+  background: #faf9f6;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.role-screen-action:hover {
+  border-color: #8a48d6;
+  color: #7042a6;
+}
+
+.role-screen-context p,
+.role-screen-empty {
+  color: #777873;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.role-screen-related {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 24px;
+}
+
+.role-screen-related span {
+  padding: 7px 9px;
+  border-radius: 3px;
+  color: #696a64;
+  background: #f1f0ec;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+@media (max-width: 760px) {
+  .role-screen-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -5,11 +5,19 @@
 
 .dashboard-body {
   display: flex;
-  min-height: calc(100vh - 76px);
+  min-height: 100vh;
 }
 
 .page-content {
   flex: 1;
   min-width: 0;
-  padding: clamp(24px, 4vw, 52px);
+  min-height: 100vh;
+  box-sizing: border-box;
+  margin-left: 236px;
+  padding: calc(76px + clamp(24px, 4vw, 52px)) clamp(24px, 4vw, 52px) clamp(24px, 4vw, 52px);
+  overflow-y: auto;
+}
+
+@media (max-width: 700px) {
+  .page-content { margin-left: 72px; }
 }

@@ -9,7 +9,7 @@ def test_seeded_users_have_roles_and_password_hashes():
                 SELECT users.email, users.password_hash, roles.role_name
                 FROM Users AS users
                 JOIN Roles AS roles ON roles.id = users.role_id
-                WHERE users.email IN ('admin@example.com', 'user@example.com')
+                WHERE users.email IN ('admin@example.com', 'operator@example.com')
                 ORDER BY users.email
                 """
             )
@@ -18,6 +18,6 @@ def test_seeded_users_have_roles_and_password_hashes():
     assert len(users) == 2
     assert users[0][0] == "admin@example.com"
     assert users[0][2] == "admin"
-    assert users[1][0] == "user@example.com"
-    assert users[1][2] == "user"
+    assert users[1][0] == "operator@example.com"
+    assert users[1][2] == "operator"
     assert all(user[1].startswith("$argon2") for user in users)

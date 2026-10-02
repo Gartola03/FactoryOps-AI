@@ -8,6 +8,41 @@ from jwt.exceptions import InvalidTokenError
 
 bearer_scheme = HTTPBearer(auto_error=False)
 
+ROLE_PERMISSIONS = {
+    "operator": {
+        "view_machines",
+        "view_telemetry",
+        "view_alerts",
+        "view_predictions",
+        "view_maintenance_history",
+        "investigate_machines",
+        "use_copilot",
+        "record_maintenance",
+    },
+    "supervisor": {
+        "view_machines",
+        "view_telemetry",
+        "view_alerts",
+        "view_predictions",
+        "view_maintenance_history",
+        "investigate_machines",
+        "use_copilot",
+        "record_maintenance",
+        "create_machines",
+        "update_machines",
+        "delete_machines",
+        "start_machines",
+        "stop_machines",
+        "pause_machines",
+        "resume_machines",
+        "run_scenarios",
+        "inject_failures",
+        "reset_simulations",
+        "review_shift_logs",
+    },
+    "admin": {"*"},
+}
+
 
 def get_current_user(
     credentials: HTTPAuthorizationCredentials | None = Depends(bearer_scheme),
@@ -32,7 +67,7 @@ def get_current_user(
             headers={"WWW-Authenticate": "Bearer"},
         ) from error
 
-    if not payload.get("sub") or not payload.get("email"):
+    if not payload.get("sub") or not payload.get("email") or not payload.get("role"):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid token claims",
@@ -40,3 +75,17 @@ def get_current_user(
         )
 
     return payload
+
+
+def require_permission(permission: str):
+    def dependency(user: dict[str, Any] = Depends(get_current_user)) -> dict[str, Any]:
+        role = str(user.get("role", "")).strip().lower()
+        permissions = ROLE_PERMISSIONS.get(role, set())
+        if "*" not in permissions and permission not in permissions:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail=f"Permission required: {permission}",
+            )
+        return user
+
+    return dependency

@@ -3,7 +3,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 
 import heroImage from "../assets/hero.png";
 import { login } from "../api/client";
-import { AUTH_KEY, ROLE_KEY, isAuthenticated } from "../auth/permissions";
+import { AUTH_KEY, ROLE_KEY, isAuthenticated, normalizeRole } from "../auth/permissions";
 
 import "./Login.css";
 
@@ -33,7 +33,7 @@ function Login() {
       const response = await login(email.trim(), password);
       sessionStorage.setItem(AUTH_KEY, "true");
       sessionStorage.setItem("factoryops-access-token", response.access_token);
-      sessionStorage.setItem(ROLE_KEY, response.user.role ?? "user");
+      sessionStorage.setItem(ROLE_KEY, normalizeRole(response.user.role));
       navigate("/dashboard", { replace: true });
     } catch (loginError) {
       setError(loginError instanceof Error ? loginError.message : "Unable to sign in");

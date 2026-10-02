@@ -19,6 +19,63 @@
 
 .machine-action:hover { background: #6f32bf; }
 
+.machine-form {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: 24px;
+  padding: 18px;
+  border: 1px solid #deddd8;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.machine-form label {
+  display: block;
+  margin-bottom: 6px;
+  color: #777873;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.machine-form input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 9px 10px;
+  border: 1px solid #d8d6d0;
+  border-radius: 4px;
+  color: #303138;
+  background: #faf9f6;
+  font: inherit;
+  font-size: 12px;
+}
+
+.machine-form-actions {
+  display: flex;
+  align-items: end;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.machine-form-actions button,
+.machine-row-actions button {
+  padding: 8px 10px;
+  border: 1px solid #d8d6d0;
+  border-radius: 4px;
+  color: #696a64;
+  background: #fff;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.machine-form-actions .machine-action {
+  border-color: #7e3fd2;
+  color: #fff;
+  background: #7e3fd2;
+}
+
 .machine-toolbar {
   display: flex;
   align-items: center;
@@ -37,11 +94,21 @@
 .machine-total strong { color: #27282d; font-size: 20px; font-weight: 500; }
 
 .machine-filter {
+  border: 0;
+  background: transparent;
+  font: inherit;
   padding-bottom: 15px;
   margin-bottom: -16px;
   color: #989993;
   cursor: pointer;
   font-size: 12px;
+}
+
+.machine-empty {
+  margin: 0;
+  padding: 28px 22px;
+  color: #777873;
+  font-size: 13px;
 }
 
 .machine-filter.active {
@@ -89,6 +156,22 @@
 
 .machine-row:hover { background: #fcfbf9; }
 
+.machine-row-machine {
+  color: inherit;
+  text-decoration: none;
+}
+
+.machine-row-machine:hover strong { color: #7042a6; }
+
+.machine-row-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.machine-row-actions button:last-child {
+  color: #b14d4d;
+}
+
 .machine-row strong,
 .machine-row small { display: block; }
 
@@ -123,4 +206,5 @@
   .machine-action { margin-top: 22px; }
   .machine-toolbar { gap: 14px; overflow-x: auto; }
   .machine-total { min-width: 90px; }
+  .machine-form { grid-template-columns: 1fr; }
 }

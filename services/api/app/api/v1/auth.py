@@ -36,7 +36,8 @@ def login(credentials: LoginRequest):
         with conn.cursor() as cur:
             cur.execute(
                 """
-                SELECT users.id, users.username, users.email, users.password_hash, roles.role_name
+                  SELECT users.id, users.username, users.email, users.password_hash, roles.role_name,
+                      users.is_active
                 FROM Users AS users
                 LEFT JOIN Roles AS roles ON roles.id = users.role_id
                 WHERE LOWER(users.email) = LOWER(%s)
@@ -45,11 +46,15 @@ def login(credentials: LoginRequest):
             )
             user = cur.fetchone()
 
-    if user is None or not _verify_password(credentials.password, user[3]):
+    if user is None or not user[5] or not _verify_password(credentials.password, user[3]):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid email or password",
         )
+
+    with get_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute("UPDATE Users SET last_login_at = CURRENT_TIMESTAMP WHERE id = %s", (user[0],))
 
     expires_at = datetime.now(timezone.utc) + timedelta(minutes=settings.jwt_expiration_minutes)
     token = jwt.encode(

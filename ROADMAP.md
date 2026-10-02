@@ -336,48 +336,42 @@ Build the first complete FactoryOps industrial experience.
 Initial roles:
 
 ```text
-ADMIN
-DEVELOPER
-TECHNICIAN
+ADMIN      # System Admin
+SUPERVISOR # Controls machine states & runs failure scenarios
+OPERATOR   # Field Technician (Views telemetry, uses AI Copilot, logs repairs)
 ```
 
 Permissions should reflect the actual workflows.
 
-### Developer
+### Field Technician / Operator
 
 ```text
-[ ] View machines
-[ ] Create machines
-[ ] Start machines
-[ ] Stop machines
-[ ] Pause machines
-[ ] Resume machines
-[ ] Run scenarios
-[ ] Inject failures
-[ ] Reset simulations
+[X] View General Overview Dashboard (high-level plant status & metrics)
+[X] View All Machines Directory (list & filter plant equipment)
+[X] Access Machine Detail View (unified view of selected machine's telemetry, predictions, alerts, & history)
+[X] Use AI Copilot Workspace (conversational chat assistant)
+[X] Record Maintenance Logs (submit & log completed repairs)
 ```
 
-### Technician
+### Plant Supervisor
 
 ```text
-[ ] View machines
-[ ] View telemetry
-[ ] View alerts
-[ ] View predictions
-[ ] View maintenance history
-[ ] Investigate machines
-[ ] Use AI Copilot
-[ ] Record maintenance
+[X] Access all Operator views (Overview Dashboard, All Machines Directory, Machine Details)
+[X] Access Simulation & Scenarios Control Panel:
+    - Start, stop, pause, & resume simulated machines
+    - Run pre-built scenarios & inject custom failure events
+    - Reset machine simulation states (restore metrics to healthy baseline)
+    - Review shift maintenance logs & verify operator repairs
 ```
 
-### Administrator
+### Platform Administrator
 
 ```text
-[ ] Manage users
-[ ] Manage roles
-[ ] Manage factory configuration
-[ ] Access developer functionality
-[ ] Access technician functionality
+[X] Manage users & accounts
+[X] Manage system roles & security permissions
+[X] Manage factory & system configuration
+[X] Access all Supervisor functionality
+[X] Access all Operator functionality
 ```
 
 ---
@@ -421,12 +415,12 @@ RUNNING
 Tasks:
 
 ```text
-[ ] Machine model
-[ ] Machine CRUD
-[ ] Machine state machine
-[ ] State transition validation
-[ ] Machine API
-[ ] Machine UI
+[X] Machine model
+[X] Machine CRUD
+[X] Machine state machine
+[X] State transition validation
+[X] Machine API
+[X] Machine UI
 ```
 
 ---

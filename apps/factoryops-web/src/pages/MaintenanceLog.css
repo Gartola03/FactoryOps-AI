@@ -1,0 +1,100 @@
+.maintenance-log-page {
+  max-width: 860px;
+}
+
+.maintenance-log-back {
+  display: inline-block;
+  margin-bottom: 22px;
+  color: #7042a6;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.maintenance-log-badge {
+  align-self: flex-start;
+  padding: 8px 11px;
+  border: 1px solid #d9d4e5;
+  border-radius: 4px;
+  color: #7042a6;
+  background: #f5f0fb;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.maintenance-log-form {
+  display: grid;
+  gap: 12px;
+  margin-top: 30px;
+  padding: 25px;
+  border: 1px solid #deddd8;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.maintenance-log-form label {
+  color: #37383e;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.maintenance-log-form textarea {
+  width: 100%;
+  box-sizing: border-box;
+  resize: vertical;
+  padding: 14px;
+  border: 1px solid #d8d6d0;
+  border-radius: 4px;
+  color: #303138;
+  background: #faf9f6;
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.maintenance-log-form textarea:focus {
+  outline: 2px solid #d9c6f0;
+  border-color: #8a48d6;
+}
+
+.maintenance-log-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.maintenance-log-cancel,
+.maintenance-log-submit {
+  padding: 11px 15px;
+  border-radius: 4px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.maintenance-log-cancel {
+  border: 1px solid #deddd8;
+  color: #686963;
+  background: transparent;
+}
+
+.maintenance-log-submit {
+  border: 1px solid #7e3fd2;
+  color: #fff;
+  background: #7e3fd2;
+}
+
+.maintenance-log-submit:disabled {
+  cursor: wait;
+  opacity: .65;
+}
+
+.maintenance-log-error {
+  color: #b14d4d;
+  font-size: 13px;
+}
