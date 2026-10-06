@@ -62,7 +62,6 @@ function Dashboard() {
     <div className="dashboard-page">
       <div className="page-heading">
         <div>
-          <p className="page-kicker">Thursday, 01 October 2026</p>
           <h1>Factory overview</h1>
           <p className="page-subtitle">A live view of production health across your floor.</p>
         </div>

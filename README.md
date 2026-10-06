@@ -3,158 +3,120 @@
 > An end-to-end Industrial AI platform for predictive maintenance, machine telemetry, data engineering, ML, and AI-assisted maintenance.
 
 ![Python](https://img.shields.io/badge/Python-3.12-blue)
-![PyTorch](https://img.shields.io/badge/PyTorch-DeepLearning-red)
 ![FastAPI](https://img.shields.io/badge/FastAPI-API-green)
 ![Docker](https://img.shields.io/badge/Docker-Containers-blue)
-![Kubernetes](https://img.shields.io/badge/Kubernetes-Orchestration-326CE5)
-![AWS](https://img.shields.io/badge/AWS-Cloud-orange)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue)
-![Apache Airflow](https://img.shields.io/badge/Airflow-Workflow-red)
-![Apache Spark](https://img.shields.io/badge/PySpark-BigData-orange)
-![LangChain](https://img.shields.io/badge/LangChain-LLM-success)
+![Frontend](https://img.shields.io/badge/React%20%7C%20TypeScript%20%7C%20Vite-Frontend-646CFF)
 ---
 
 ## Overview
 
-FactoryOps AI is a production-inspired Industrial AI platform that simulates the lifecycle of industrial machine data—from telemetry generation and storage to predictive maintenance and AI-assisted investigation.
+FactoryOps AI is a production-inspired industrial operations platform. The current
+vertical slice focuses on machine management, role-based access, maintenance
+workflows, and a React dashboard backed by a versioned FastAPI API.
 
-The platform covers:
+The repository is intentionally evolving in milestones. The current runtime
+includes the foundation and core machine-management workflow; streaming,
+predictive-maintenance models, RAG, AI agents, Kubernetes, and AWS deployment
+remain roadmap work until their implementation and tests are present.
 
-* Industrial IoT and machine telemetry
-* Data ingestion and processing
-* PostgreSQL data storage
-* Predictive maintenance
-* Machine learning and deep learning
-* REST APIs
-* MLOps
-* Big-data processing
-* Retrieval-Augmented Generation (RAG)
-* AI agents
-* Observability
-* Containerized and cloud deployment
+### Current implementation
+
+* React, TypeScript, and Vite web application
+* FastAPI REST API under `/api/v1`
+* PostgreSQL 16 persistence
+* JWT Bearer authentication with Argon2 password hashing
+* Operator, supervisor, and administrator roles
+* Machine CRUD and validated machine-state transitions
+* Scenario records, maintenance records, shift reports, and factory configuration
+* Docker Compose local database
+* API tests, Ruff linting, and GitHub Actions CI
 
 ## Architecture
 
 ```text
-                         Industrial Machines
-                                │
-                                ▼
-                       Machine Simulator
-                                │
-                                ▼
-                            Telemetry
-                                │
-                                ▼
-                       Ingestion Pipeline
-                                │
-                    ┌───────────┴───────────┐
-                    ▼                       ▼
-              PostgreSQL             Object Storage
-          Operational Data          Raw / Historical Data
-                    │                       │
-                    │                       ▼
-                    │                Data Processing
-                    │                       │
-                    │                       ▼
-                    │               Feature Engineering
-                    │                       │
-                    │                       ▼
-                    │                  ML Training
-                    │                       │
-                    │                       ▼
-                    │                   ML Models
-                    │                       │
-                    └───────────┬───────────┘
-                                ▼
-                         Prediction API
-                                │
-                    ┌───────────┴───────────┐
-                    ▼                       ▼
-               AI Copilot             FastAPI API
-                    │                       │
-              ┌─────┴─────┐                 │
-              ▼           ▼                 ▼
-             RAG       ML Tools       React Frontend
-              │                             │
-              └──────────────┬──────────────┘
-                             ▼
-                   Maintenance Dashboard
++--------------------------------+
+| React + TypeScript + Vite      |
+| apps/factoryops-web            |
++---------------+----------------+
+                |
+                | HTTP/JSON, JWT Bearer
+                v
++--------------------------------+
+| FastAPI                        |
+| services/api                   |
+| /api/v1                        |
++---------------+----------------+
+                |
+                | psycopg
+                v
++--------------------------------+
+| PostgreSQL 16                  |
+| users, roles,                  |
+| machines and maintenance       |
++--------------------------------+
 ```
 
 ### Architecture Overview
 
-FactoryOps separates **operational application data** from **large-scale historical and ML data**.
+The current system separates the web client, API, and operational database:
 
-* **PostgreSQL** stores operational data such as machines, machine state, alerts, predictions, and maintenance records.
-* **Object Storage** stores raw telemetry, historical datasets, Parquet files, training datasets, and other large artifacts.
-* **Data Processing** transforms historical data into datasets suitable for analytics and machine learning.
-* **ML Training** produces predictive-maintenance models from engineered features.
-* **Prediction API** exposes trained models to the rest of the platform.
-* **AI Copilot** combines machine data, prediction services, and RAG to assist with maintenance investigation.
-* **Factory Dashboard** provides the user-facing view of machines, predictions, alerts, and maintenance information.
+* **React frontend** provides the dashboard, machine views, maintenance workflow,
+  and administration screens.
+* **FastAPI API** validates requests, authenticates users, enforces permissions,
+  and exposes the `/api/v1` contracts.
+* **PostgreSQL** is the system of record for users, roles, machines, scenarios,
+  maintenance records, and factory configuration.
+
+The machine simulator exists as a separate project area, but the complete
+simulation loop and telemetry integration are not yet part of the current API.
+Historical object storage, prediction services, Kafka, Airflow, RAG, and agents
+are planned extensions rather than available runtime dependencies.
 
 ## Features
 
-### Machine Simulation
+### Machine and maintenance operations
 
-* Industrial machine simulation
-* Synthetic sensor telemetry
-* Machine operating states
-* Failure scenarios
-* Configurable sensor behavior
+* Machine directory and detail views
+* Machine creation, update, and deletion
+* Validated start, stop, pause, resume, and maintenance transitions
+* Scenario recording, including failure injection and reset actions
+* Maintenance records and supervisor verification of shift reports
 
-### Data Platform
+### Identity and administration
 
-* Telemetry ingestion
-* PostgreSQL persistence
-* Data validation
-* Historical datasets
-* Feature engineering
-* Scheduled data workflows
+* JWT login endpoint
+* Argon2 password hashing
+* Role-based permissions enforced by the API
+* User and role administration
+* Factory configuration management
 
-### Predictive Maintenance
+### Engineering foundation
 
-* Failure prediction
-* Anomaly detection
-* Time-series features
-* Model evaluation
-* Prediction API
+* Docker Compose PostgreSQL environment
+* API and integration tests
+* Ruff, Black, mypy configuration, and GitHub Actions CI
+* Separate documentation for architecture, development, and API contracts
 
-### AI Maintenance Copilot
-
-* Machine history lookup
-* Prediction lookup
-* Technical-document retrieval
-* RAG-based investigation
-* AI-assisted maintenance recommendations
-
-### Platform Engineering
-
-* Docker-based development
-* Automated testing
-* CI/CD
-* Service separation
-* Observability
-* Kubernetes deployment
-* Cloud infrastructure
+Telemetry ingestion, prediction, alerting, AI Copilot, RAG, and agent workflows
+are documented as future capabilities in [`ROADMAP.md`](ROADMAP.md), not as
+completed features.
 
 ## Technology Stack
 
 | Layer                | Technologies                |
 | -------------------- | --------------------------- |
-| **Frontend**         | React, TypeScript, Vite     |
-| **Backend / API**    | Python, FastAPI, Pydantic   |
-| **Database**         | PostgreSQL, pgvector        |
-| **Data Engineering** | Pandas, SQL, Apache Airflow |
-| **Streaming**        | Apache Kafka                |
-| **Big Data**         | Apache Spark, PySpark       |
-| **Machine Learning** | Scikit-learn, PyTorch       |
-| **MLOps**            | MLflow                      |
-| **Generative AI**    | LangChain, LangGraph, RAG   |
-| **Containers**       | Docker, Docker Compose      |
-| **Orchestration**    | Kubernetes                  |
+| **Database**         | PostgreSQL 16              |
+| **API**              | FastAPI, Pydantic, PyJWT   |
+| **Authentication**   | JWT, Argon2 via `pwdlib`   |
+| **Frontend**         | React, TypeScript, Vite    |
+| **Local infrastructure** | Docker, Docker Compose |
+| **Testing and quality** | Pytest, Ruff, Black, mypy |
 | **CI/CD**            | GitHub Actions              |
-| **Cloud**            | AWS                         |
+
+Planned technologies such as Kafka, Spark, PyTorch, MLflow, LangChain,
+Kubernetes, and AWS will be added when the corresponding roadmap milestone is
+implemented.
 
 
 ## Getting Started
@@ -180,7 +142,7 @@ cd factoryops-ai
 ### Configure Environment
 
 ```bash
-cp .env.example .env
+cp services/api/.env.example services/api/.env
 ```
 
 Update the environment variables required for local development.
@@ -188,7 +150,7 @@ Update the environment variables required for local development.
 ### Start Infrastructure
 
 ```bash
-docker compose up -d
+make db-setup
 ```
 
 ### Run the Application
@@ -202,68 +164,150 @@ make help
 Typical development commands include:
 
 ```bash
-make dev
-make test
-make lint
-make format
-make migrate
-make seed
+make install
+make api
+make web
 make down
 ```
 
-> Commands are added as the corresponding components become available.
+See [`docs/DEVELOPMENT.md`](docs/DEVELOPMENT.md) for prerequisites, database
+setup, service-specific test and quality commands, troubleshooting, and the CI
+workflow.
 
 ## Testing
 
 Tests are organized around the system boundaries and core domain behavior.
+Run the API and frontend suites separately because they use different tools and
+runtime dependencies.
+
+### API tests
+
+Start and initialize PostgreSQL first:
 
 ```bash
-make test
+make db-setup
 ```
 
-Testing will cover:
+Run all API tests:
 
-* Unit tests
-* API tests
-* Database integration tests
-* Data validation
-* Machine simulation
-* Prediction logic
-* AI tools
-* End-to-end workflows
+```bash
+cd services/api
+uv run pytest
+```
+
+Run one API test file or one test:
+
+```bash
+cd services/api
+uv run pytest tests/test_api_contracts.py
+uv run pytest tests/test_machine_operations.py::test_supervisor_can_create_and_transition_machine
+```
+
+Validate API quality checks:
+
+```bash
+cd services/api
+uv run ruff check .
+uv run mypy app
+```
+
+The API suite currently covers:
+
+* Health and authentication behavior
+* Machine reads and machine CRUD
+* Role and permission enforcement
+* State transitions
+* Scenarios and maintenance records
+* Administrative user management
+
+### Frontend tests
+
+Install frontend dependencies and run the Vitest suite:
+
+```bash
+cd apps/factoryops-web
+npm install
+npm test
+```
+
+Run a focused frontend test file:
+
+```bash
+cd apps/factoryops-web
+npx vitest run src/auth/permissions.test.ts
+npx vitest run src/api/client.test.ts
+```
+
+Validate the frontend with linting and a production build:
+
+```bash
+cd apps/factoryops-web
+npm run lint
+npm run build
+```
+
+The frontend suite currently covers:
+
+* Role normalization and permission checks.
+* Route access for operators and administrators.
+* Login request serialization.
+* Bearer-token propagation.
+* API error handling in the client.
+* Maintenance request serialization.
+
+Simulation, prediction, alerting, and AI-tool tests will be added with their
+corresponding implementations.
 
 The primary end-to-end scenario is:
 
 ```text
-Start Machine
-      ↓
-Inject Failure
-      ↓
-Generate Telemetry
-      ↓
-Process Telemetry
-      ↓
-Generate Prediction
-      ↓
-Create Alert
-      ↓
-Investigate Machine
-      ↓
-Ask AI Copilot
-      ↓
-Record Maintenance
+Login
+  ↓
+List or create machine
+  ↓
+Transition machine state
+  ↓
+Run scenario
+  ↓
+Record maintenance
+  ↓
+Review and verify shift report
 ```
 
 ## Documentation
 
 Detailed project documentation is maintained separately from this README.
 
-* `ROADMAP.md` — implementation phases and milestones
-* `docs/ARCHITECTURE.md` — system architecture and design decisions
-* `docs/DEVELOPMENT.md` — local development and engineering workflow
-* `docs/API.md` — API endpoints and contracts
+- `ROADMAP.md` — implementation phases and milestones
+- `docs/ARCHITECTURE.md` — system architecture and design decisions
+- `docs/DEVELOPMENT.md` — local development and engineering workflow
+- `docs/API.md` — API endpoints and contracts
 
-The README is intentionally kept focused on orientation and getting started.
+### Project Documentation
+
+Run the MkDocs documentation server with:
+
+```bash
+make mkdocs
+```
+
+The documentation will be available at:
+
+[http://127.0.0.1:8001/](http://127.0.0.1:8001/)
+
+The `make mkdocs` target runs:
+
+```bash
+uv run mkdocs serve --dev-addr=127.0.0.1:8001
+```
+
+## AI-Assisted Development
+
+AI, mainly **Microsoft GitHub Copilot through the Copilot Student program**, was used to speed up the development and documentation of this project.
+
+It was used for code assistance, debugging, and preparing technical documentation. The **architecture, technical decisions, implementation, and final result remained under human control**.
+
+AI-generated content was reviewed and adapted before being included in the project.
 
 ## Roadmap
 
@@ -322,9 +366,11 @@ Contributions are welcome.
 Before submitting a change:
 
 ```bash
-make test
-make lint
-make format
+cd services/api && uv run pytest
+cd services/api && uv run ruff check .
+cd apps/factoryops-web && npm test
+cd apps/factoryops-web && npm run lint
+cd apps/factoryops-web && npm run build
 ```
 
 For larger changes, document the architectural impact and update the relevant documentation. -->

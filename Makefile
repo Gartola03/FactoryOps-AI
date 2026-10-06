@@ -75,7 +75,7 @@ setup: venv install test
 
 ## Run localhost webpage for the project docs
 mkdocs:
-	uv run mkdocs serve
+	uv run mkdocs serve --dev-addr=127.0.0.1:8001
 
 ## Clean selected project files interactively
 clean_selected:

@@ -182,7 +182,6 @@ function AdminSettings({ initialTab }: AdminSettingsProps) {
     <div className="admin-settings-page">
       <div className="page-heading">
         <div><p className="page-kicker">Platform administration</p><h1>{initialTab === "users" ? "User & Role Management" : "Factory Configuration"}</h1><p className="page-subtitle">{initialTab === "users" ? "Manage accounts and assign role permissions." : "Manage global factory and service parameters."}</p></div>
-        <span className="admin-only-badge">ADMIN only</span>
       </div>
 
       {error && <p className="admin-error" role="alert">{error}</p>}

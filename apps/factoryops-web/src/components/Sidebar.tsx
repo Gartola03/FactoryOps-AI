@@ -8,7 +8,7 @@ function Sidebar() {
       <p className="sidebar-label">Workspace</p>
       <nav className="sidebar-nav">
         {navigationItems.filter((link) => link.showInSidebar !== false && hasPermission(link.permission)).map((link) => (
-          <NavLink key={link.path} to={link.path}><span>{link.number}</span>{link.label}</NavLink>
+          <NavLink key={link.path} to={link.path}>{link.label}</NavLink>
         ))}
       </nav>
       <div className="sidebar-footnote">

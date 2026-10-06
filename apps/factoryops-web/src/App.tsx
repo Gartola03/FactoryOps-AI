@@ -7,7 +7,6 @@ import MaintenanceLog from "./pages/MaintenanceLog";
 import ShiftReports from "./pages/ShiftReports.tsx";
 import Dashboard from "./pages/Dashboard";
 import Scenes from "./pages/Scenes";
-import Events from "./pages/Events";
 import Login from "./pages/Login";
 import RoleScreen from "./pages/RoleScreen";
 import Copilot from "./pages/Copilot";
@@ -36,7 +35,6 @@ function App() {
           <Route path="/machines/:machineId" element={<RequireAccess path="/machines"><MachineDetail /></RequireAccess>} />
           <Route path="/machines/:machineId/maintenance" element={<RequireAccess path="/maintenance"><MaintenanceLog /></RequireAccess>} />
           <Route path="/telemetry" element={<RequireAccess path="/telemetry"><RoleScreen path="/telemetry" title="Live telemetry" description="Inspect current machine signals and operating state." /></RequireAccess>} />
-          <Route path="/alerts" element={<RequireAccess path="/alerts"><Events /></RequireAccess>} />
           <Route path="/predictions" element={<RequireAccess path="/predictions"><RoleScreen path="/predictions" title="Failure predictions" description="Review risk signals and prioritize machines for investigation." /></RequireAccess>} />
           <Route path="/maintenance" element={<RequireAccess path="/maintenance"><RoleScreen path="/maintenance" title="Maintenance history" description="Review completed work and record the next maintenance action." /></RequireAccess>} />
           <Route path="/investigations" element={<RequireAccess path="/investigations"><RoleScreen path="/investigations" title="Machine investigations" description="Bring telemetry, alerts, predictions, and history together for a machine review." /></RequireAccess>} />

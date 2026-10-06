@@ -1,0 +1,5 @@
+site_name: FactoryOps AI
+docs_dir: docs
+
+theme:
+  name: material

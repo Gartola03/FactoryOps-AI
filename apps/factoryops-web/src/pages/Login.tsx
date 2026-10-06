@@ -71,7 +71,7 @@ function Login() {
               id="email"
               name="email"
               type="email"
-              autoComplete="email"
+              autoComplete="new-password"
               placeholder="you@company.com"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
